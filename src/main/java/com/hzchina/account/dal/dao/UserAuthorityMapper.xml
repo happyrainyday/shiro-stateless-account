@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tairanchina.account.dal.dao.UserAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.tairanchina.account.dal.entity.UserAuthority" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
+    <result column="authority_cd" property="authorityCd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, authority_cd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_authority
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByUid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_authority
+    where  uid = #{uid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_authority
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByUid" parameterType="java.lang.String" >
+    delete from user_authority
+    where uid = #{uid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tairanchina.account.dal.entity.UserAuthority" >
+    insert into user_authority (id, uid, authority_cd
+      )
+    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=VARCHAR}, #{authorityCd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tairanchina.account.dal.entity.UserAuthority" >
+    insert into user_authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="authorityCd != null" >
+        authority_cd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityCd != null" >
+        #{authorityCd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tairanchina.account.dal.entity.UserAuthority" >
+    update user_authority
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityCd != null" >
+        authority_cd = #{authorityCd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tairanchina.account.dal.entity.UserAuthority" >
+    update user_authority
+    set uid = #{uid,jdbcType=VARCHAR},
+      authority_cd = #{authorityCd,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

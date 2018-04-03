@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c.%M():%L - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- 输出日志到文件 每天一个文件 -->
+	<appender name="dailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="ImmediateFlush" value="true"></param>
+		<param name="File"
+			value="${catalina.home}/logs/xxx/dailyRollingFile.log"></param>
+		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'"></param>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p %c.%M():%L - %m%n"></param>
+		</layout>
+	</appender> 
+
+	<!-- 写入数据库记录 -->
+	<!-- <appender name="db" class="org.apache.log4j.jdbc.JDBCAppender"> -->
+	<!-- <param name="driver" value="com.mysql.jdbc.Driver" /> -->
+	<!-- <param name="URL" -->
+	<!-- value="jdbc:mysql://xxx/account_db?useUnicode=true&amp;characterEncoding=utf-8" 
+		/> -->
+	<!-- <param name="user" value="root" /> -->
+	<!-- <param name="password" value="xxx" /> -->
+	<!-- <layout class="org.apache.log4j.PatternLayout"> -->
+	<!-- <param name="ConversionPattern" -->
+	<!-- value="insert into bbs_log(log_name, user_name, oper_class, oper_method, 
+		create_time, log_level, msg, source, user_type) values ('%X{userid}','%X{username}','%C','%M','%d{yyyy-MM-dd 
+		HH:mm:ss}','%p','%m', '%X{source}', '%X{usertype}')" /> -->
+	<!-- </layout> -->
+	<!-- </appender> -->
+
+	<!--- 异步测试，当日志达到缓存区大小时候执行所包的appender -->
+	<!-- <appender name="ASYNC" class="org.apache.log4j.AsyncAppender"> -->
+	<!-- <param name="BufferSize" value="2" /> -->
+	<!-- <appender-ref ref="db" /> -->
+	<!-- </appender> -->
+
+	<!-- 下面是打印 mybatis语句的配置 -->
+	<!-- <logger name="com.ibatis" additivity="true"> -->
+	<!-- <level value="DEBUG" /> -->
+	<!-- </logger> -->
+
+	<!-- <logger name="java.sql.Connection" additivity="true"> -->
+	<!-- <level value="DEBUG" /> -->
+	<!-- </logger> -->
+
+	<logger name="java.sql.Statement" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+	
+	<!-- 关闭日志 -->
+	<logger name="org.springframework" additivity="true">
+		<level value="OFF" />
+	</logger>
+	<logger name="org.apache.ibatis" additivity="true">
+		<level value="OFF" />
+	</logger>
+	<logger name="org.mybatis.spring" additivity="true">
+		<level value="OFF" />
+	</logger>
+
+	<logger name="java.sql.PreparedStatement" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+
+	<logger name="java.sql.ResultSet" additivity="true">
+		<level value="DEBUG" />
+	</logger>
+
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+</log4j:configuration> 

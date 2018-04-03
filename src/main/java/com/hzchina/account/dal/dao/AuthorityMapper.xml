@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tairanchina.account.dal.dao.AuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.tairanchina.account.dal.entity.Authority" >
+    <id column="authority_cd" property="authorityCd" jdbcType="VARCHAR" />
+    <result column="authority_name" property="authorityName" jdbcType="VARCHAR" />
+    <result column="authority_description" property="authorityDescription" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    authority_cd, authority_name, authority_description
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+    where authority_cd = #{authorityCd,jdbcType=VARCHAR}
+  </select>
+  <select id="getAuthorityList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from authority
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from authority
+    where authority_cd = #{authorityCd,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tairanchina.account.dal.entity.Authority" >
+    insert into authority (authority_cd, authority_name, authority_description
+      )
+    values (#{authorityCd,jdbcType=VARCHAR}, #{authorityName,jdbcType=VARCHAR}, #{authorityDescription,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tairanchina.account.dal.entity.Authority" >
+    insert into authority
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="authorityCd != null" >
+        authority_cd,
+      </if>
+      <if test="authorityName != null" >
+        authority_name,
+      </if>
+      <if test="authorityDescription != null" >
+        authority_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="authorityCd != null" >
+        #{authorityCd,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityName != null" >
+        #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityDescription != null" >
+        #{authorityDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tairanchina.account.dal.entity.Authority" >
+    update authority
+    <set >
+      <if test="authorityName != null" >
+        authority_name = #{authorityName,jdbcType=VARCHAR},
+      </if>
+      <if test="authorityDescription != null" >
+        authority_description = #{authorityDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where authority_cd = #{authorityCd,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tairanchina.account.dal.entity.Authority" >
+    update authority
+    set authority_name = #{authorityName,jdbcType=VARCHAR},
+      authority_description = #{authorityDescription,jdbcType=VARCHAR}
+    where authority_cd = #{authorityCd,jdbcType=VARCHAR}
+  </update>
+</mapper>
