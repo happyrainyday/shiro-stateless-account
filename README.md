@@ -1,5 +1,5 @@
 # shiro-stateless-account
-shiro ，stateless， account
+shiro ，stateless， account，token
 
 Maybe you need to change some config, e.g xxx.xml 
 
